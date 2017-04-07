@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * @author mengfanzhu
- * @Description:
+ * @Description: 自定义组合键
  * @date 17/4/7 13:01
  */
 public class DefinedCombinationKey implements WritableComparable<DefinedCombinationKey> {
@@ -51,6 +51,6 @@ public class DefinedCombinationKey implements WritableComparable<DefinedCombinat
      */
     public int compareTo(DefinedCombinationKey definedCombinationKey) {
         logger.info("-------CombinationKey flag-------");
-        return this.firstKey.compareTo(definedCombinationKey.getFirstKey());
+        return this.secondKey.compareTo(definedCombinationKey.getSecondKey());
     }
 }

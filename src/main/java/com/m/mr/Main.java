@@ -47,9 +47,7 @@ public class Main extends Configured implements Tool {
         job.setOutputValueClass(Text.class);
         //自定义分区策略
         job.setPartitionerClass(DefinedPartitioner.class);
-        //自定义分组策略
-      //  job.setGroupingComparatorClass(DefinedGroup.class);
-        //自定义二次排序策略
+        //自定义排序策略，在自定义组合键重写方法compareTo时若自定义排序策略与之相同可以省略自定义排序策略。最终结果以自定义排序策略为主
         job.setSortComparatorClass(DefinedSort.class);
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setNumReduceTasks(3);//reducer num  = partition num
