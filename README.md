@@ -39,4 +39,6 @@
 6,Daniel,male,78        95\
 14,Monica,female,56     92\
 13,Clara,female,87      72\
-8,Alex,male,52  69
+8,Alex,male,52  69\
+#执行命令\
+hadoop jar mapReduceDemo-1.0-SNAPSHOT.jar  com.m.mr.Main /person.csv /out
