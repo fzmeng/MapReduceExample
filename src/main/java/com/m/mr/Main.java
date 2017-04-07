@@ -16,7 +16,7 @@ import org.apache.hadoop.util.ToolRunner;
 /**
  * 操作person.csv文件
  */
-public class AgePartition extends Configured implements Tool {
+public class Main extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
         if (args.length != 2) {
@@ -36,24 +36,21 @@ public class AgePartition extends Configured implements Tool {
             fs.delete(output, true);
         }
         FileOutputFormat.setOutputPath(job, output);
-        job.setJarByClass(AgePartition.class);
-        job.setMapperClass(DefinedMapReducer.class);
-        //自定义分区策略
-        job.setPartitionerClass(DefinedPartitioner.class);
-        //自定义分组策略
-        job.setGroupingComparatorClass(DefinedGroup.class);
-        //自定义二次排序策略
-        job.setSortComparatorClass(DefinedSort.class);
-
-        job.setReducerClass(DefinedReducer.class);
+        job.setJarByClass(Main.class);
+        job.setMapperClass(DefinedMap.class);
         //设置map的输出key和value类型
         job.setMapOutputKeyClass(DefinedCombinationKey.class);
         job.setMapOutputValueClass(IntWritable.class);
-
+        job.setReducerClass(DefinedReducer.class);
         //设置reduce的输出key和value类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
-
+        //自定义分区策略
+        job.setPartitionerClass(DefinedPartitioner.class);
+        //自定义分组策略
+      //  job.setGroupingComparatorClass(DefinedGroup.class);
+        //自定义二次排序策略
+        job.setSortComparatorClass(DefinedSort.class);
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setNumReduceTasks(3);//reducer num  = partition num
 
@@ -61,7 +58,7 @@ public class AgePartition extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        int res = ToolRunner.run(new Configuration(), new AgePartition(), args);
+        int res = ToolRunner.run(new Configuration(), new Main(), args);
         System.exit(res);
     }
 }
